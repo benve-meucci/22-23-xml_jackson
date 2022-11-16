@@ -11,12 +11,21 @@ public class App
 {
     public static void main( String[] args ) throws Exception 
     {
-        Classe c = new Classe("pippo");
+        System.out.println("------------");
+        Classe c1 = new Classe("pippo");
         XmlMapper xmlMapper = new XmlMapper();
-        xmlMapper.writeValue(new File("test.xml"), c);
+        
+        // Serializzazione        
+        xmlMapper.writeValue(new File("test.xml"), c1);
+        String myXml = xmlMapper.writeValueAsString(c1);
+        System.out.println("Oggetto serializzato:" + myXml);
+        
+        // Deserializzazione        
+        Classe c2 = xmlMapper.readValue(myXml, Classe.class);
+        System.out.println("Oggetto deserializzato da stringa:" + c2.getNome());
 
-        Classe c2 = xmlMapper.readValue(new File("test.xml"), Classe.class);
-        System.out.println(c2.getNome());
+        Classe c3 = xmlMapper.readValue(new File("test.xml"), Classe.class);
+        System.out.println("Oggetto deserializzato da file: " + c3.getNome());
     }
 
 
